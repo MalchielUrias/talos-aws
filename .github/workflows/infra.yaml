@@ -33,6 +33,11 @@ jobs:
         with:
           terraform_version: latest
 
+      - name: Authenticate with GitHub for Private Modules
+        run: |
+          git config --global url."https://${{ github.token }}@github.com/".insteadOf "https://github.com/"
+
+
       - name: Terraform Init
         run: terraform init
         working-directory: terraform
