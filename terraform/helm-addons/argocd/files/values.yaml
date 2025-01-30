@@ -1,0 +1,24 @@
+global:
+  domain: argo.kubecounty.com
+
+configs:
+  clusterCredential:
+    in-cluster:
+      server: https://kubernetes.default.svc
+      config: 
+        tlsClientConfig:
+          insecure: true
+
+  credentialTemplates:
+    https-creds:
+      url: https://github.com/MalchielUrias
+      username: "${github_username}"
+      password: "${github_password}"
+
+  repository:
+    homelab-repo:
+      url: https://github.com/MalchielUrias/tepe_masterclass.git
+
+  secrets:
+    argocdServerAdminPassword: "${argocdServerAdminPassword}"
+    argocdServerAdminPasswordMtime: "${argocdServerAdminPasswordMtime}"
