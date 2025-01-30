@@ -22,14 +22,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure SSH for Private Modules
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.GIT_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-        shell: bash
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -40,11 +32,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
-
-      # - name: Authenticate with GitHub for Private Modules
-      #   run: |
-      #     git config --global url."https://${{ github.token }}@github.com/".insteadOf "https://github.com/"
-
 
       - name: Terraform Init
         run: terraform init
