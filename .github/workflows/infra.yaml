@@ -55,6 +55,9 @@ jobs:
         with:
           ref: '${{ github.event.pull_request.base.ref }}'
 
+      - name: Check Dir
+        run: ls -la
+
       - name: Generate Infracost cost estimate baseline
         run: |
           infracost breakdown --path=terraform \
