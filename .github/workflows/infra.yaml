@@ -98,3 +98,45 @@ jobs:
         # if: github.event_name == 'push'
         run: terraform apply -auto-approve
         working-directory: terraform
+
+      # Save kubeconfig and talosconfig as artifacts
+      - name: Save Kubeconfig and Talosconfig
+        run: |
+          mkdir -p artifacts
+          cp kubeconfig artifacts/kubeconfig
+          cp talosconfig artifacts/talosconfig
+        continue-on-error: true  # Don't fail if they don't exist
+          
+      - name: Upload Kubeconfig and Talosconfig
+        uses: actions/upload-artifact@v3
+        with:
+          name: cluster-configs
+          path: artifacts/
+
+  destroy:
+    name: Destroy Terraform Resources
+    runs-on: ubuntu-latest
+    needs: terraform
+    if: contains(github.event.head_commit.message, '[destroy]')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: eu-west-1 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: terraform
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
+        working-directory: terraform
