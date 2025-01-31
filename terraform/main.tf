@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 }
 
 
-# ======= Locals ===========
+# ========== Locals =============
 locals {
 
   instance_architecture    = var.cluster_architecture == "amd64" ? "x86_64" : var.cluster_architecture
@@ -143,7 +143,7 @@ module "talos_master" {
   ami_id = data.aws_ami.talos.id
   associate_public_ip = true
   security_group_ids = [ module.talos_master_sg.sg_id ]
-  max_size = 5
+  max_size = 6
   min_size = 1
   desired_capacity = 1
   vpc_zone_identifier = module.talos_vpc.public_subnets
