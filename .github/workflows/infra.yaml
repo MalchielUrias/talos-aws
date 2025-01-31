@@ -61,6 +61,7 @@ jobs:
           infracost breakdown --path=terraform \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
+          cat infracost-base.json
 
       - name: Generate Infracost diff
         run: |
@@ -68,6 +69,7 @@ jobs:
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
+          cat infracost.json
 
       - name: Post Infracost comment
         run: |
