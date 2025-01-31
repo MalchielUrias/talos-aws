@@ -73,6 +73,7 @@ jobs:
         run: |
           infracost breakdown --path=terraform/tfplan.json \
                               --format=json \
+                              --log-level=info \
                               --out-file=/tmp/infracost-base.json
           cat /tmp/infracost-base.json
 
@@ -81,6 +82,7 @@ jobs:
           infracost diff --path=terraform/tfplan.json \
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
+                          --log-level=info \
                           --out-file=/tmp/infracost.json
           cat /tmp/infracost.json
 
