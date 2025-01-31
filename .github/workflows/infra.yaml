@@ -99,6 +99,9 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: terraform
 
+      - name: Check Dir
+        run: ls -la
+
       # Save kubeconfig and talosconfig as artifacts
       - name: Save Kubeconfig and Talosconfig
         run: |
