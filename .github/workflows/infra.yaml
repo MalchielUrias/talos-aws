@@ -51,8 +51,11 @@ jobs:
       - name: Check Dir
         run: ls -la
 
+      - name: Check Dir
+        run: ls -la terraform
+
       - name: Convert plan output to json file
-        run: terraform show -json tfplan > tfplan.json
+        run: terraform show -json terraform/tfplan > tfplan.json
       
       - name: Setup Infracost
         uses: infracost/actions/setup@v3
