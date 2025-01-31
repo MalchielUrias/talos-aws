@@ -108,7 +108,7 @@ jobs:
         continue-on-error: true  # Don't fail if they don't exist
           
       - name: Upload Kubeconfig and Talosconfig
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cluster-configs
           path: artifacts/
