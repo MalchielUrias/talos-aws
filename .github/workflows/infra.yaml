@@ -47,6 +47,9 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: terraform
+
+      - name: Convert plan output to json file
+        run: terraform show -json tfplan > tfplan.json
       
       - name: Setup Infracost
         uses: infracost/actions/setup@v3
@@ -58,14 +61,14 @@ jobs:
 
       - name: Generate Infracost cost estimate baseline
         run: |
-          infracost breakdown --path=terraform \
+          infracost breakdown --path=tfplan.json \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
           cat /tmp/infracost-base.json
 
       - name: Generate Infracost diff
         run: |
-          infracost diff --path=terraform \
+          infracost diff --path=tfplan.json \
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
