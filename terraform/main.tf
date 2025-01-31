@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 }
 
 
-# ======= Locals =============
+# ======= Locals ===========
 locals {
 
   instance_architecture    = var.cluster_architecture == "amd64" ? "x86_64" : var.cluster_architecture
