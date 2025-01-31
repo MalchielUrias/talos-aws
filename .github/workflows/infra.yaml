@@ -102,12 +102,15 @@ jobs:
       - name: Check Dir
         run: ls -la
 
+      - name: Check Dir
+        run: ls -la terraform
+
       # Save kubeconfig and talosconfig as artifacts
       - name: Save Kubeconfig and Talosconfig
         run: |
           mkdir -p artifacts
-          cp kubeconfig artifacts/kubeconfig
-          cp talosconfig artifacts/talosconfig
+          cp terraform/kubeconfig artifacts/kubeconfig
+          cp terraform/talosconfig artifacts/talosconfig
         continue-on-error: true  # Don't fail if they don't exist
           
       - name: Upload Kubeconfig and Talosconfig
