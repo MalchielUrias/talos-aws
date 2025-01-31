@@ -118,7 +118,7 @@ jobs:
         with:
           name: cluster-configs
           path: artifacts/
-
+# Destroy tf
   destroy:
     name: Destroy Terraform Resources
     runs-on: ubuntu-latest
