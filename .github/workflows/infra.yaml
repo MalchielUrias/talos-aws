@@ -55,7 +55,7 @@ jobs:
         run: ls -la terraform
 
       - name: Convert plan output to json file
-        run: terraform show -json terraform/tfplan > tfplan.json
+        run: terraform show -json terraform/tfplan > terraform/tfplan.json
       
       - name: Setup Infracost
         uses: infracost/actions/setup@v3
