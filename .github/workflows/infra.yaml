@@ -48,6 +48,9 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: terraform
 
+      - name: Check Dir
+        run: ls -la
+
       - name: Convert plan output to json file
         run: terraform show -json tfplan > tfplan.json
       
