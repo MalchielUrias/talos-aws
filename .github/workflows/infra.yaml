@@ -66,16 +66,19 @@ jobs:
       - name: Check Dir
         run: ls -la
 
+      - name: Check Dir
+        run: ls -la terraform
+
       - name: Generate Infracost cost estimate baseline
         run: |
-          infracost breakdown --path=tfplan.json \
+          infracost breakdown --path=terraform/tfplan.json \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
           cat /tmp/infracost-base.json
 
       - name: Generate Infracost diff
         run: |
-          infracost diff --path=tfplan.json \
+          infracost diff --path=terraform/tfplan.json \
                           --format=json \
                           --compare-to=/tmp/infracost-base.json \
                           --out-file=/tmp/infracost.json
